@@ -1,0 +1,43 @@
+.filter {
+  table-layout: fixed;
+  width: 100%;
+  height: auto;
+  position: relative;
+}
+
+div#filter{
+  display: inline;
+}
+
+ul.horizontal {
+  display:inline;
+  /* height: 470px;
+  width: 23%;
+  padding: 0 10px; */
+}
+
+/* .grid {
+  display: grid;
+  grid-row: 2;
+  text-align:center;
+}
+
+.grid-1 {
+  grid-row: 1;
+}
+
+.grid-2 {
+  grid-row:2;
+} */
+table, th, td {
+  border: 1px solid black;
+}
+li {
+  list-style-type: none;
+  text-align: center;
+}
+
+ul{
+  margin:0;
+  padding:0;
+}
