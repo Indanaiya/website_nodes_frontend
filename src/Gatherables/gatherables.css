@@ -37,6 +37,10 @@ li {
   text-align: center;
 }
 
+.activeNode {
+  color: green;
+}
+
 ul{
   margin:0;
   padding:0;

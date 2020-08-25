@@ -18,6 +18,9 @@ function getTimeUntilNextSpawn(node) {
   return timeUntilInEorzea(node.spawnTimes[0]); //If nothing was returned during the for loop, that means that the next spawn time will be the first one tomorrow.
 }
 
+/**
+ * A class to display the time until a node spawns or despawns
+ */
 export default class TimerTimeElement extends React.Component {
   constructor({ node }) {
     super();

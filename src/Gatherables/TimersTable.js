@@ -1,11 +1,14 @@
 import React from "react";
 
-import TimerTimeElement from './TimerTimeElement'
+import TimerRow from "./TimerRow";
 
 const apiAddress = process.env.REACT_APP_API_ADDRESS ?? "localhost:5000";
-const SERVER = "Cerberus";
+const SERVER = "Chaos";
 
-export default class Timers extends React.Component {
+/**
+ * A table containing information about gathering nodes
+ */
+export default class TimersTable extends React.Component {
   constructor() {
     super();
     this.state = { nodes: [] };
@@ -15,6 +18,11 @@ export default class Timers extends React.Component {
     this.loadData();
   }
 
+  /**
+   * Fetch the list of nodes from the API. 
+   * Create a <TimerRow> for each node returned and add that as an array to the state under the key 'rows'. 
+   * Sets rows to an empty array if no nodes were retrieved.
+   */
   async loadData() {
     const nodes = await fetch(
       `http://${apiAddress}/nodes/withItemData/${SERVER}`
@@ -31,33 +39,16 @@ export default class Timers extends React.Component {
     if (nodes === undefined) {
       console.log("Nodes is undefined");
     } else if (nodes.length > 0) {
-      this.setState({ nodes });
+      this.setState({
+        rows: nodes.map((node, index) => <TimerRow key={index} node={node} />),
+      }); //Using index as key as loadData should only run once, so the keys wont change
     } else {
-      this.setState({ nodes: [] });
+      this.setState({ rows: [] });
     }
   }
 
   render() {
-    const rows = this.state.nodes.map((node) => {
-
-      return (
-        <>
-          <tr>
-            <td>
-              {node.location.map} ({node.location.x},{node.location.y})
-            </td>
-            <td>
-              <ul>
-                {node.items.map((item) => (
-                  <li>{item.name}</li>
-                ))}
-              </ul>
-            </td>
-            <TimerTimeElement node={node}/>
-          </tr>
-        </>
-      );
-    });
+    const { rows } = this.state;
     return (
       <table>
         <thead>

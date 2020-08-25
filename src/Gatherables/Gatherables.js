@@ -1,7 +1,7 @@
 import React from "react";
 
 import FilterBar from './FilterBar.js'
-import Timers from './Timers.js'
+import TimersTable from './TimersTable.js'
 import './gatherables.css'
 
 
@@ -10,7 +10,7 @@ export default class Gatherables extends React.Component {
     return (
       <>
         <FilterBar/>
-        <Timers />
+        <TimersTable />
       </>
     );
   }
