@@ -45,9 +45,9 @@ export default class TimerRow extends React.Component {
           </tr>
         </thead>
         <tbody>
-          {Object.keys(item.prices).map((server) => (
+          {Object.keys(item.marketInfo).map((server) => (
             <tr>
-              <td>{server + ": " + item.prices[server].price + " gil"}</td>
+              <td>{server + ": " + item.marketInfo[server].price + " gil"}</td>
             </tr>
           ))}
         </tbody>

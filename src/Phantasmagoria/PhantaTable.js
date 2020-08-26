@@ -18,7 +18,7 @@ function PhantaRows(props) {
   props.items.map(
     (item) =>
       (item.price = Math.min(
-        ...Object.keys(item.prices).map((key) => item.prices[key].price)
+        ...Object.keys(item.marketInfo).map((key) => item.marketInfo[key].price)
       ))
   );
   return props.items
