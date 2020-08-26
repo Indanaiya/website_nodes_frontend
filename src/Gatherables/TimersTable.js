@@ -3,7 +3,7 @@ import React from "react";
 import TimerRow from "./TimerRow";
 
 const apiAddress = process.env.REACT_APP_API_ADDRESS ?? "localhost:5000";
-const SERVER = "Chaos";
+const SERVER = "Chaos"; //TODO should be site wide
 
 /**
  * A table containing information about gathering nodes
