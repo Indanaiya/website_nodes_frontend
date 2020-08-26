@@ -10,7 +10,7 @@ export default function Contents() {
   return (
     <Switch>
       <Route path="/phantasmagoria" component={PhantaTable} />
-      <Route path="/gatherables" component={Gatherables} />
+      <Route path="/timers" component={Gatherables} />
       <Route component={NotFound} />
     </Switch>
   );
