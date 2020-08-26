@@ -25,9 +25,9 @@ export default class TimerRow extends React.Component {
   }
 
   /**
-   * Toggle the display of details about an item. 
+   * Toggle the display of details about an item.
    * If details about a different item for this row was displayed, that will be replaced with details about the supplied item.
-   * 
+   *
    * @param {*} item The item for information about to be displayed or hidden
    * @param {*} e The Event
    */
@@ -40,7 +40,9 @@ export default class TimerRow extends React.Component {
     const description = (
       <table>
         <thead>
-          <th>{item.name}</th>
+          <tr>
+            <th>{item.name}</th>
+          </tr>
         </thead>
         <tbody>
           {Object.keys(item.prices).map((server) => (
@@ -51,7 +53,7 @@ export default class TimerRow extends React.Component {
         </tbody>
       </table>
     );
-    this.setState({ description:{description, itemName: item.name} });
+    this.setState({ description: { description, itemName: item.name } });
   }
 
   render() {

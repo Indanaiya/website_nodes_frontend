@@ -31,6 +31,13 @@ ul.horizontal {
 } */
 table, th, td {
   border: 1px solid black;
+  padding: 3px;
+  border-collapse: collapse;
+}
+
+li:hover{
+  background-color:#e5e5e5;
+  cursor:pointer;
 }
 li {
   list-style-type: none;
