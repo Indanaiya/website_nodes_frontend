@@ -22,20 +22,23 @@ ul {
 
 /* The position of the node boxes */
 section.timerContainer {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(250px, 1fr)
+  ); /*auto-fill sets the grid container to have the largest number of columns it can without going out of the viewport*/
 }
 
 div.node {
-  flex: 0 1 300px;
+  align-self: baseline;
+  min-height: 140px;
   margin: 5px;
 }
 
 /* The layout within the node boxes */
 div.node {
   font-weight: bold;
-  background-color:hsl(217,10%, 25%);
+  background-color: hsl(217, 10%, 25%);
   display: grid;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   grid-template-rows: max-content auto;
@@ -43,7 +46,7 @@ div.node {
 
 /* Node box header*/
 div.node header {
-  background-color: hsl(217,10%, 15%);
+  background-color: hsl(217, 10%, 15%);
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: hsl(200, 50%, 40%);
@@ -61,10 +64,10 @@ div.node span.timer {
 }
 
 /*Node box body*/
-div.node div.main{
-  
+table {
+  width: 100%;
+  height: 100%;
 }
-
 table,
 th,
 td {
@@ -74,7 +77,7 @@ td {
 }
 
 .clickable:hover {
-  background-color: hsl(217,10%, 38%);
+  background-color: hsl(217, 10%, 38%);
   cursor: pointer;
 }
 li {
