@@ -1,3 +1,4 @@
+/*prefers-color-scheme Remember to use this */
 .filter {
   table-layout: fixed;
   width: 100%;
@@ -5,50 +6,83 @@
   position: relative;
 }
 
-div#filter{
+div#filter {
   display: inline;
 }
 
 ul.horizontal {
-  display:inline;
-  /* height: 470px;
-  width: 23%;
-  padding: 0 10px; */
+  display: inline;
 }
 
-/* .grid {
+/** Timers */
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+/* The position of the node boxes */
+section.timerContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+div.node {
+  flex: 0 1 300px;
+  margin: 5px;
+}
+
+/* The layout within the node boxes */
+div.node {
+  font-weight: bold;
+  background-color:hsl(217,10%, 25%);
   display: grid;
-  grid-row: 2;
-  text-align:center;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  grid-template-rows: max-content auto;
 }
 
-.grid-1 {
-  grid-row: 1;
+/* Node box header*/
+div.node header {
+  background-color: hsl(217,10%, 15%);
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: hsl(200, 50%, 40%);
+  display: grid;
+  padding: 2px;
+}
+div.node span.location {
+  grid-column: 1;
+}
+div.node span.timer {
+  grid-column: 2;
+  text-align: right;
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
-.grid-2 {
-  grid-row:2;
-} */
-table, th, td {
+/*Node box body*/
+div.node div.main{
+  
+}
+
+table,
+th,
+td {
   border: 1px solid black;
   padding: 3px;
   border-collapse: collapse;
 }
 
-.clickable:hover{
-  background-color:#e5e5e5;
-  cursor:pointer;
+.clickable:hover {
+  background-color: hsl(217,10%, 38%);
+  cursor: pointer;
 }
 li {
   list-style-type: none;
-  text-align: center;
+  text-align: left;
+  margin: 2px;
 }
 
 .activeNode {
   color: green;
-}
-
-ul{
-  margin:0;
-  padding:0;
 }
