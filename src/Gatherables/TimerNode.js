@@ -137,7 +137,7 @@ export default class TimerNode extends React.Component {
         <header>
           <span className="location">
             {node.location.map}
-            <br />({node.location.x},{node.location.y})
+            <br />({node.location.x}, {node.location.y})
           </span>
           <TimerTimeElement node={node} />
         </header>
