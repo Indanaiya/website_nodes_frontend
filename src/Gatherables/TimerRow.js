@@ -33,31 +33,88 @@ export default class TimerRow extends React.Component {
    */
   displayItemDetails(item, e) {
     if (this.state.description?.itemName === item.name) {
-      this.setState({ description: null });
+      this.setState({ description: null, serverSpecifics: null });
       return;
     }
 
     const description = (
-      <table>
-        <thead>
-          <tr>
-            <th>{item.name}</th>
-          </tr>
-        </thead>
-        <tbody>
-          {Object.keys(item.marketInfo).map((server) => (
+      <td>
+        <table>
+          <thead>
             <tr>
-              <td>{server + ": " + item.marketInfo[server].price + " gil"}</td>
+              <th>{item.name}</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {Object.keys(item.marketInfo).map((server, index) => (
+              <tr
+                onClick={this.displayServerSpecifics.bind(this, item, server)}
+              >
+                <td key={index}>
+                  {server + ": " + item.marketInfo[server].price + " gil"}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </td>
     );
     this.setState({ description: { description, itemName: item.name } });
   }
 
+  displayServerSpecifics(item, server, e) {
+    if (this.state.serverSpecifics?.server === server) {
+      this.setState({ serverSpecifics: null });
+      return;
+    }
+
+    const serverSpecifics = (
+      <td>
+        <table>
+          <thead>
+            <tr>
+              <th colspan="2">{server}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Past Week's Sales (Overall):</td>
+              <td>{item.marketInfo[server].saleVelocity.overall*7}</td>
+            </tr>
+            <tr>
+              <td>Past Week's Sales (NQ)</td>
+              <td>{item.marketInfo[server].saleVelocity.nq*7}</td>
+            </tr>
+            <tr>
+              <td>Past Week's Sales (HQ)</td>
+              <td>{item.marketInfo[server].saleVelocity.hq*7}</td>
+            </tr>
+            <tr>
+              <td>Average Price</td>
+              <td>{item.marketInfo[server].avgPrice.overall.toFixed(3)}</td>
+            </tr>
+            <tr>
+              <td>Average NQ Price</td>
+              <td>{item.marketInfo[server].avgPrice.nq.toFixed(3)}</td>
+            </tr>
+            <tr>
+              <td>Average HQ Price</td>
+              <td>{item.marketInfo[server].avgPrice.hq.toFixed(3)}</td>
+            </tr>
+            <tr>
+              <td>Most Recent Upload Time</td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+    );
+    this.setState({
+      serverSpecifics: { serverSpecifics, server },
+    });
+  }
+
   render() {
-    const { node, items, description } = this.state;
+    const { node, items, description, serverSpecifics } = this.state;
     return (
       <>
         <tr>
@@ -67,7 +124,10 @@ export default class TimerRow extends React.Component {
           <td>{items}</td>
           <TimerTimeElement node={node} />
         </tr>
-        {description?.description}
+        <tr>
+          {description?.description}
+          {serverSpecifics?.serverSpecifics}
+        </tr>
       </>
     );
   }
