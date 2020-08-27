@@ -15,7 +15,11 @@ export default class TimerRow extends React.Component {
       items: (
         <ul>
           {node.items.map((item, index) => (
-            <li key={index} onClick={this.displayItemDetails.bind(this, item)}>
+            <li
+              key={index}
+              className="clickable"
+              onClick={this.displayItemDetails.bind(this, item)}
+            >
               {item.name}
             </li>
           ))}
@@ -25,13 +29,80 @@ export default class TimerRow extends React.Component {
   }
 
   /**
+   * Display price and scrip details.
+   * Temporary function.
+   *
+   * @param {*} item
+   * @param {*} e
+   */
+  displayItemDetails(item, e) {
+    this.displayPriceDetails(item, e);
+
+    if (item.task?.yellowScrips) {
+      this.displayScripDetails(item.task.yellowScrips, "Yellow", e);
+    } else if (item.task?.whiteScrips) {
+      this.displayScripDetails(item.task.whiteScrips, "White", e);
+    }
+  }
+
+  /**
+   *
+   * @param {*} scripInfo
+   * @param {*} colour
+   * @param {*} e
+   */
+  displayScripDetails(scripInfo, colour, e) {
+    if (colour !== "White" && colour !== "Yellow") {
+      throw new Error(`Colour must be Yellow or White, it was ${colour}`);
+    }
+    if (this.state.scripDetails) {
+      this.setState({ scripDetails: null });
+      return;
+    }
+
+    const rows = scripInfo.map(
+      ({ collectibility, experience, scrips }, index) => (
+        <tr key={index}>
+          <td>{collectibility}</td>
+          <td>
+            {experience[0]}|{experience[1]}
+          </td>
+          <td>
+            {scrips[0]}|{scrips[1]}
+          </td>
+        </tr>
+      )
+    );
+
+    const scripTable = (
+      <td>
+        <table>
+          <thead>
+            <tr>
+              <th colSpan="3">{colour}</th>
+            </tr>
+            <tr>
+              <th>Collectibility</th>
+              <th>Experience(Normal|Starred)</th>
+              <th>Scrips(Normal|Starred)</th>
+            </tr>
+          </thead>
+          <tbody>{rows}</tbody>
+        </table>
+      </td>
+    );
+
+    this.setState({ scripDetails: scripTable });
+  }
+
+  /**
    * Toggle the display of details about an item.
    * If details about a different item for this row was displayed, that will be replaced with details about the supplied item.
    *
    * @param {*} item The item for information about to be displayed or hidden
    * @param {*} e The Event
    */
-  displayItemDetails(item, e) {
+  displayPriceDetails(item, e) {
     if (this.state.description?.itemName === item.name) {
       this.setState({ description: null, serverSpecifics: null });
       return;
@@ -48,9 +119,15 @@ export default class TimerRow extends React.Component {
           <tbody>
             {Object.keys(item.marketInfo).map((server, index) => (
               <tr
-                onClick={this.displayServerSpecifics.bind(this, item, server)}
+                key={index}
+                className="clickable"
+                onClick={this.displayServerSpecifics.bind(
+                  this,
+                  item.marketInfo[server],
+                  server
+                )}
               >
-                <td key={index}>
+                <td>
                   {server + ": " + item.marketInfo[server].price + " gil"}
                 </td>
               </tr>
@@ -62,47 +139,68 @@ export default class TimerRow extends React.Component {
     this.setState({ description: { description, itemName: item.name } });
   }
 
-  displayServerSpecifics(item, server, e) {
+  /**
+   * Toggles the display of further information about an item's sales on a specific server.
+   * If details for a different server was displayed, that will be replaced with details for the supplied server
+   *
+   * @param {{salevelocity:{overall:number,nq:number,hq:number}, avgPrice:{overall:number,nq:number,hq:number}, lastUploadTime:String}} marketInfo The marketInfo of the item for information to be displayed about
+   * @param {string} server The server that the marketInfo pertains to
+   * @param {*} e The Event
+   */
+  displayServerSpecifics(
+    { saleVelocity, avgPrice, lastUploadTime },
+    server,
+    e
+  ) {
     if (this.state.serverSpecifics?.server === server) {
       this.setState({ serverSpecifics: null });
       return;
     }
+    const lastUploadTimeDate = new Date(lastUploadTime);
+    const lastUploadTimeString =
+      lastUploadTimeDate.getUTCDate() +
+      1 +
+      "/" +
+      (lastUploadTimeDate.getUTCMonth() + 1) +
+      "/" +
+      lastUploadTimeDate.getUTCFullYear();
 
     const serverSpecifics = (
       <td>
         <table>
           <thead>
             <tr>
-              <th colspan="2">{server}</th>
+              <th colSpan="2">{server}</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td>Past Week's Sales (Overall):</td>
-              <td>{item.marketInfo[server].saleVelocity.overall*7}</td>
+              <td>{saleVelocity.overall * 7}</td>
             </tr>
             <tr>
               <td>Past Week's Sales (NQ)</td>
-              <td>{item.marketInfo[server].saleVelocity.nq*7}</td>
+              <td>{saleVelocity.nq * 7}</td>
             </tr>
             <tr>
               <td>Past Week's Sales (HQ)</td>
-              <td>{item.marketInfo[server].saleVelocity.hq*7}</td>
+              <td>{saleVelocity.hq * 7}</td>
             </tr>
             <tr>
               <td>Average Price</td>
-              <td>{item.marketInfo[server].avgPrice.overall.toFixed(3)}</td>
+              <td>{avgPrice.overall.toFixed(3)}</td>
             </tr>
             <tr>
               <td>Average NQ Price</td>
-              <td>{item.marketInfo[server].avgPrice.nq.toFixed(3)}</td>
+              <td>{avgPrice.nq.toFixed(3)}</td>
             </tr>
             <tr>
               <td>Average HQ Price</td>
-              <td>{item.marketInfo[server].avgPrice.hq.toFixed(3)}</td>
+              <td>{avgPrice.hq.toFixed(3)}</td>
             </tr>
             <tr>
               <td>Most Recent Upload Time</td>
+              <td>{lastUploadTimeString}</td>
             </tr>
           </tbody>
         </table>
@@ -114,7 +212,13 @@ export default class TimerRow extends React.Component {
   }
 
   render() {
-    const { node, items, description, serverSpecifics } = this.state;
+    const {
+      node,
+      items,
+      description,
+      serverSpecifics,
+      scripDetails,
+    } = this.state;
     return (
       <>
         <tr>
@@ -127,6 +231,7 @@ export default class TimerRow extends React.Component {
         <tr>
           {description?.description}
           {serverSpecifics?.serverSpecifics}
+          {scripDetails}
         </tr>
       </>
     );

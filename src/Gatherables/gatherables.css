@@ -35,7 +35,7 @@ table, th, td {
   border-collapse: collapse;
 }
 
-li:hover{
+.clickable:hover{
   background-color:#e5e5e5;
   cursor:pointer;
 }
