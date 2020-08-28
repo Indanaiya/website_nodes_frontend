@@ -30,14 +30,20 @@ export default class TimerNode extends React.Component {
 
   displayItemDetails(item) {
     const description = (
-      <table>
+      <table className="details">
         <thead>
           <tr>
             <th colSpan="2">
-              <button type="button" onClick={this.removeItemDetails.bind(this)}>
-                &#5130;
-              </button>
-              {item.name}
+              <div>
+                <button
+                  type="button"
+                  className="clickable"
+                  onClick={this.removeItemDetails.bind(this)}
+                >
+                  &#5130;
+                </button>
+                <span>{item.name}</span>
+              </div>
             </th>
           </tr>
         </thead>
@@ -73,17 +79,20 @@ export default class TimerNode extends React.Component {
       lastUploadTimeDate.getUTCFullYear();
 
     const serverSpecifics = (
-      <table>
+      <table className="details">
         <thead>
           <tr>
             <th colSpan="2">
-              <button
-                type="button"
-                onClick={this.removeServerSpecifics.bind(this)}
-              >
-                &#5130;
-              </button>
-              {server}
+              <div>
+                <button
+                  type="button"
+                  className="clickable"
+                  onClick={this.removeServerSpecifics.bind(this)}
+                >
+                  &#5130;
+                </button>
+                <span>{server}</span>
+              </div>
             </th>
           </tr>
         </thead>
