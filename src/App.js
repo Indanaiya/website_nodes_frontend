@@ -8,12 +8,16 @@ function App() {
   return (
     <Router>
       <nav className="sidebar">
-        <NavLink to="/timers">Gathering Node Timers</NavLink>
-        <br/>
-        <NavLink to="/phantasmagoria">Phantasmagoria</NavLink>
-        <br/>
+        <NavLink to="/timers">
+          <div>Gathering Node Timers</div>
+        </NavLink>
+        <br />
+        <NavLink to="/phantasmagoria">
+          <div>Phantasmagoria</div>
+        </NavLink>
+        <br />
         <NavLink exact to="/">
-          Root
+          <div>Root</div>
         </NavLink>
       </nav>
       <div className="content">

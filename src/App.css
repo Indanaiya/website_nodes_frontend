@@ -1,9 +1,4 @@
-
-.active{
-  color: #FFFFFF;
-  background-color: #555555;
-}
-
+/* Sidebar */
 nav.sidebar {
   background-color: hsl(200, 0%, 15%);
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -13,14 +8,38 @@ nav.sidebar {
   position: fixed;
   height: 100%;
   overflow: auto;
+  display: flex;
+  flex-flow: column nowrap;
 }
 
+nav.sidebar a {
+  text-decoration: none;
+  font-family: "Times New Roman", Times, serif;
+  font-weight: 700;
+}
+
+nav.sidebar a.active {
+  color: hsl(0, 0%, 50%);
+  background-color: hsl(0, 0%, 25%);
+}
+
+nav.sidebar a.active > div {
+  color: hsl(200, 55%, 65%);
+}
+
+nav.sidebar a > div {
+  margin-left: 10px;
+  margin-right: 10px;
+  color: hsl(0,0%,75%);
+  font-size: 22px;
+}
+/* Main content view */
 .content {
   color: hsl(200, 71%, 73%);
   background-color: hsl(200, 0%, 10.4%);
-  margin-left: 200px;
+  margin-left: 200px; /*The same as the sidebar width*/
   padding: 1px 16px;
-  height: 1000px;
+  height: 1000px; /*TODO, just for testing*/
 }
 
 ::selection {
