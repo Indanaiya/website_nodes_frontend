@@ -1,5 +1,7 @@
 import React from "react";
 
+import { timer } from "../App.js";
+
 import {
   timeUntilInEorzea,
   getEorzeaHoursDecimal,
@@ -34,12 +36,11 @@ export default class TimerTimeElement extends React.Component {
   }
 
   componentDidMount() {
-    this.interval = setInterval(() => {
+    timer.subscribe(this.state.node, () =>
       this.setState({
         timeUntilNextSpawn: getTimeUntilNextSpawn(this.state.node), //TODO this might be incredibly inefficient
-      });
-      //console.log(this.state.timeUntilNextSpawn);
-    }, 1000);
+      })
+    );
   }
 
   componentWillUnmount() {
@@ -64,8 +65,8 @@ export default class TimerTimeElement extends React.Component {
 
     return (
       <span className={`${className} timer`}>
-          {String(Math.floor(time / 60)).padStart(2, "0")}:
-          {String(Math.floor(time % 60)).padStart(2, "0")}
+        {String(Math.floor(time / 60)).padStart(2, "0")}:
+        {String(Math.floor(time % 60)).padStart(2, "0")}
       </span>
     );
   }

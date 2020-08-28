@@ -4,6 +4,21 @@ import { BrowserRouter as Router, NavLink } from "react-router-dom";
 import "./App.css";
 import Contents from "./Contents.js";
 
+export const timer = {
+  subscribers: new Map(),
+  subscribe(key, fun) {
+    this.subscribers.set(key, fun);
+  },
+};
+
+timer.interval = setInterval(() => {
+  for (let fun of timer.subscribers.values()) {
+    fun();
+  }
+}, 1000);
+
+Object.freeze(timer);
+
 function App() {
   return (
     <Router>
