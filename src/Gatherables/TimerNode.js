@@ -55,7 +55,8 @@ export default class TimerNode extends React.Component {
               onClick={this.displayServerSpecifics.bind(
                 this,
                 item.marketInfo[server],
-                server
+                server,
+                item.name
               )}
             >
               <td>{server}</td>
@@ -68,7 +69,11 @@ export default class TimerNode extends React.Component {
     this.setState({ description });
   }
 
-  displayServerSpecifics({ saleVelocity, avgPrice, lastUploadTime }, server) {
+  displayServerSpecifics(
+    { saleVelocity, avgPrice, lastUploadTime },
+    server,
+    itemName
+  ) {
     const lastUploadTimeDate = new Date(lastUploadTime);
     const lastUploadTimeString =
       lastUploadTimeDate.getUTCDate() +
@@ -91,7 +96,7 @@ export default class TimerNode extends React.Component {
                 >
                   &#5130;
                 </button>
-                <span>{server}</span>
+                <span>{itemName} ({server})</span>
               </div>
             </th>
           </tr>
@@ -158,7 +163,16 @@ export default class TimerNode extends React.Component {
         <tbody>
           <tr>
             <td>Spawn Times</td>
-            <td>{spawnTimes.map((spawnTime)=> `${String(Math.floor(spawnTime)).padStart(2, "0")}:${String(spawnTime % 1).padStart(2,"0")}`).join(", ")}</td>
+            <td>
+              {spawnTimes
+                .map(
+                  (spawnTime) =>
+                    `${String(Math.floor(spawnTime)).padStart(2, "0")}:${String(
+                      spawnTime % 1
+                    ).padStart(2, "0")}`
+                )
+                .join(", ")}
+            </td>
           </tr>
         </tbody>
       </table>
