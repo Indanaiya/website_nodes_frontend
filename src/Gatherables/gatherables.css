@@ -50,6 +50,10 @@ div.node header {
   display: grid;
   padding: 2px;
 }
+div.node header:hover{
+  background-color: hsl(217, 10%, 18%);
+  cursor: pointer;
+}
 div.node header span.location {
   grid-column: 1;
 }
@@ -69,7 +73,7 @@ div.node div.main {
   font-weight: 500;
 }
 
-div.node div.main .clickable:hover {
+div.node .clickable:hover {
   background-color: hsl(217, 10%, 38%);
   cursor: pointer;
 }
@@ -116,4 +120,9 @@ div.node div.main table.details thead tr th div > button {
 div.node div.main table.details thead tr th div > span {
   width: 100%;
   padding: 3px;
+}
+
+/* Node description */
+div.node div.main th.nodeName {
+  font-size: 15px;
 }

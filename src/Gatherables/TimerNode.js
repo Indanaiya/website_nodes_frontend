@@ -139,11 +139,45 @@ export default class TimerNode extends React.Component {
     this.setState({ serverSpecifics: null });
   }
 
+  toggleNodeDetails({ level, name, spawnTimes }) {
+    const { nodeDetails } = this.state;
+    if (nodeDetails) {
+      this.setState({ nodeDetails: null });
+      return;
+    }
+
+    const newNodeDetails = (
+      <table>
+        <thead>
+          <tr>
+            <th colSpan="2" className="nodeName">
+              Level {level} {name}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Spawn Times</td>
+            <td>{spawnTimes.map((spawnTime)=> `${String(Math.floor(spawnTime)).padStart(2, "0")}:${String(spawnTime % 1).padStart(2,"0")}`).join(", ")}</td>
+          </tr>
+        </tbody>
+      </table>
+    );
+
+    this.setState({ nodeDetails: newNodeDetails });
+  }
+
   render() {
-    const { node, items, description, serverSpecifics } = this.state;
+    const {
+      node,
+      items,
+      description,
+      serverSpecifics,
+      nodeDetails,
+    } = this.state;
     return (
       <div className="node">
-        <header>
+        <header onClick={this.toggleNodeDetails.bind(this, node)}>
           <span className="location">
             {node.location.map}
             <br />({node.location.x}, {node.location.y})
@@ -151,11 +185,7 @@ export default class TimerNode extends React.Component {
           <TimerTimeElement node={node} />
         </header>
         <div className="main">
-          {serverSpecifics
-            ? serverSpecifics
-            : description
-            ? description
-            : items}
+          {nodeDetails ?? serverSpecifics ?? description ?? items}
         </div>
       </div>
     );
