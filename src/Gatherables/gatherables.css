@@ -73,7 +73,7 @@ div.node div.main {
   font-weight: 500;
 }
 
-div.node .clickable:hover {
+div.node div.main .clickable:hover {
   background-color: hsl(217, 10%, 38%);
   cursor: pointer;
 }
