@@ -11,7 +11,7 @@ const SERVER = "Chaos"; //TODO should be site wide
 export default class TimersCollection extends React.Component {
   constructor() {
     super();
-    this.state = { nodes: [] };
+    this.state = { nodes: [], rows:[<b>Loading...</b>] };
   }
 
   componentDidMount() {
