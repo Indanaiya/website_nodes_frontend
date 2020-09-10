@@ -1,20 +1,36 @@
-import React from 'react';
+import React from "react";
 
-export default class Filter extends React.Component{
-  constructor({options,style}){
+export default class Filter extends React.Component {
+  constructor({ name, optionNames }) {
     super();
-    console.log(style)
-    this.state = {options, style};
+    const options = {};
+    optionNames.forEach((optionName) => (options[optionName] = false));
+    this.state = { name, options };
   }
 
-  render(){
-    const {options} = this.state;
-    const style = this.state.style ? this.state.style : {};
-    const optionsComponents = options.map((option, index) => <div className={`grid-${index+1}`}>{option}</div>)
+  selectOption(id, e) {
+    const options = Object.assign(this.state.options);
+    options[id] = !options[id];
+    this.setState({ options });
+  }
+
+  render() {
+    const { name, options } = this.state;
     return (
-      <div className="grid" style={style}>
-        {optionsComponents}
+      <div className={name}>
+        <h3> {name}</h3>
+        <ul className={name}>
+          {Object.keys(options).map((option) => (
+            <li
+              id={`${name}${option}`}
+              className={options[option] ? "selected" : null}
+              onClick={this.selectOption.bind(this, option)}
+            >
+              {option}
+            </li>
+          ))}
+        </ul>
       </div>
-    )
+    );
   }
 }

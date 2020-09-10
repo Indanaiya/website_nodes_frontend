@@ -1,19 +1,30 @@
 /*prefers-color-scheme Remember to use this */
 .filter {
-  table-layout: fixed;
-  width: 100%;
-  height: auto;
-  position: relative;
+  display: flex;
+  text-align: center;
+}
+.filter .selected {
+  font-weight: 600;
+  background-color: hsl(200, 0%, 25%);
+}
+.filter ul {
+  list-style-position: inside;
+  padding: 0px;
+  display: grid;
 }
 
-.filter div#filter {
-  display: inline;
+.filter ul.patches {
+  grid-template-columns: auto auto;
 }
 
-.filter ul.horizontal {
-  display: inline;
+.filter ul.classes {
+  grid-template-columns: auto;
 }
 
+.filter li {
+  list-style-type: none;
+  text-align: center;
+}
 
 /* The position of the node boxes */
 section.timerContainer {
@@ -32,8 +43,8 @@ div.node {
 
 /* The layout within the node boxes */
 div.node {
-  font-family: 'Times New Roman', serif;
-  font-size:18px;
+  font-family: "Times New Roman", serif;
+  font-size: 18px;
   background-color: hsl(217, 10%, 25%);
   display: grid;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -50,7 +61,7 @@ div.node header {
   display: grid;
   padding: 2px;
 }
-div.node header:hover{
+div.node header:hover {
   background-color: hsl(217, 10%, 18%);
   cursor: pointer;
 }
@@ -61,7 +72,7 @@ div.node header span.timer {
   grid-column: 2;
   text-align: right;
   margin-top: auto;
-  margin-bottom: auto;  
+  margin-bottom: auto;
 }
 
 div.node header span.timer.activeNode {
@@ -101,7 +112,7 @@ div.node div.main td {
   border-collapse: collapse;
 }
 
-div.node div.main table.details thead tr th > div{
+div.node div.main table.details thead tr th > div {
   display: flex;
   flex-flow: row nowrap;
   justify-content: left;
@@ -115,7 +126,7 @@ div.node div.main table.details thead tr th div > button {
   background-color: transparent;
   font-size: 15px;
   font-weight: 700;
-  width:15%;
+  width: 15%;
 }
 div.node div.main table.details thead tr th div > span {
   width: 100%;
