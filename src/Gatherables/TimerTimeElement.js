@@ -16,19 +16,16 @@ import {
  */
 function getTimeUntilNextSpawn({ spawnTimes, lifespan }) {
   const eorzeaTime = getEorzeaHoursDecimal();
-  const lifespanActual =
-    Math.floor(lifespan / 100) + ((lifespan % 100))/60;
   for (let spawnTime of spawnTimes) {
-    const spawnTimeActual =
-      Math.floor(spawnTime / 100) + ((spawnTime % 100))/60;
-    console.log({ spawnTimeActual, lifespanActual });
-    if (spawnTimeActual > eorzeaTime) {
-      return timeUntilInEorzea(spawnTimeActual);
-    } else if (spawnTimeActual + lifespanActual > eorzeaTime) {
-      return timeUntilInEorzea(spawnTimeActual) - LENGTH_OF_EORZEAN_DAY;
+    if (spawnTime > eorzeaTime) {
+      return timeUntilInEorzea(spawnTime);
+    } else if (spawnTime + lifespan > eorzeaTime) {
+      return timeUntilInEorzea(spawnTime) - LENGTH_OF_EORZEAN_DAY;
     }
   }
-  return timeUntilInEorzea(spawnTimes[0]); //If nothing was returned during the for loop, that means that the next spawn time will be the first one tomorrow.
+  return timeUntilInEorzea(
+    Math.floor(spawnTimes[0] / 100) + (spawnTimes[0] % 100) / 60
+  ); //If nothing was returned during the for loop, that means that the next spawn time will be the first one tomorrow.
 }
 
 /**
