@@ -56,3 +56,23 @@ export function timeUntilInEorzea(targetTime) {
   }
   return secondsUntilTarget;
 }
+
+/**
+ * Get the amount of time, in seconds, until the supplied node spawns or, if the node is currently spawned, the number of seconds since it spawned (as a negative number)
+ *
+ * @param {{spawnTimes: [number], lifespan:number}} node The node that will be spawning
+ * @returns {number} If positive, the time until the supplied node next spawns. If negative, the time since the node last spawned (implying that the node is still up)
+ */
+export function getTimeUntilNextSpawn({ spawnTimes, lifespan }) {
+  const eorzeaTime = getEorzeaHoursDecimal();
+  for (let spawnTime of spawnTimes) {
+    if (spawnTime > eorzeaTime) {
+      return timeUntilInEorzea(spawnTime);
+    } else if (spawnTime + lifespan > eorzeaTime) {
+      return timeUntilInEorzea(spawnTime) - LENGTH_OF_EORZEAN_DAY;
+    }
+  }
+  return timeUntilInEorzea(
+    Math.floor(spawnTimes[0] / 100) + (spawnTimes[0] % 100) / 60
+  ); //If nothing was returned during the for loop, that means that the next spawn time will be the first one tomorrow.
+}
