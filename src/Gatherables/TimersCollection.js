@@ -61,9 +61,8 @@ export default class TimersCollection extends React.Component {
     if (nodes === undefined) {
       console.log("Nodes is undefined");
     } else {
-      this.setState({ nodes });
 
-      const addToState = {};
+      const addToState = {nodes};
       nodes.forEach(
         (node) => (addToState[node._id] = getTimeUntilNextSpawn(node))
       );
