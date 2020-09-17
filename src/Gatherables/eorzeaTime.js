@@ -69,7 +69,9 @@ export function getTimeUntilNextSpawn({ spawnTimes, lifespan }) {
     if (spawnTime > eorzeaTime) {
       return timeUntilInEorzea(spawnTime);
     } else if (spawnTime + lifespan > eorzeaTime) {
-      return -timeUntilInEorzea(spawnTime + lifespan) 
+      let targetTime = spawnTime + lifespan;
+      targetTime = targetTime >= 24 ? targetTime - 24 : targetTime;
+      return -timeUntilInEorzea(targetTime);
     }
   }
   return timeUntilInEorzea(
