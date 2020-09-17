@@ -8,9 +8,19 @@ import NodeDetails from "./TimerNodeComponents/NodeDetails";
  * A class to represent one gathering node
  */
 export default class TimerNode extends React.Component {
-  constructor({ node }) {
+  constructor({ node, timeUntilNextSpawn }) {
     super();
     this.items = <Items items={node.items} />;
+
+    let timeUntilDespawn;
+    if (timeUntilNextSpawn < 0) {
+      console.log(timeUntilNextSpawn);
+      this.className = "activeNode";
+      timeUntilDespawn = -timeUntilNextSpawn;
+    }
+    this.timeWhenNextSpawn = new Date(
+      Date.now() + (timeUntilDespawn ?? timeUntilNextSpawn) * 1000
+    );
 
     this.state = {};
     this.toggleNodeDetails = this.toggleNodeDetails.bind(this);
@@ -36,27 +46,16 @@ export default class TimerNode extends React.Component {
   render() {
     const {
       node: { location },
-      timeUntilNextSpawn,
       nodeUpdated,
     } = this.props;
     const { nodeDetails } = this.state;
-
-    let className, timeUntilDespawn;
-    if (timeUntilNextSpawn < 0) {
-      console.log(timeUntilNextSpawn);
-      className = "activeNode";
-      timeUntilDespawn = -timeUntilNextSpawn;
-    }
-    const timeWhenNextSpawn = new Date(
-      Date.now() + (timeUntilDespawn ?? timeUntilNextSpawn) * 1000
-    );
 
     return (
       <div className="node">
         <NodeHeader
           location={location}
-          className={className}
-          timeWhenNextSpawn={timeWhenNextSpawn}
+          className={this.className}
+          timeWhenNextSpawn={this.timeWhenNextSpawn}
           nodeUpdated={nodeUpdated}
           onClick={this.toggleNodeDetails}
         />
