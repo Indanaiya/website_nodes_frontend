@@ -1,6 +1,7 @@
 import React from "react";
 
 import TimerNode from "./TimerNode";
+import { getTimeUntilNextSpawn } from "./eorzeaTime";
 
 const apiAddress = process.env.REACT_APP_API_ADDRESS ?? "localhost:5000";
 const SERVER = "Chaos"; //TODO should be site wide
@@ -11,16 +12,37 @@ const SERVER = "Chaos"; //TODO should be site wide
 export default class TimersCollection extends React.Component {
   constructor() {
     super();
-    this.state = { nodes: [], rows:[<b>Loading...</b>] };
+    this.state = { nodes: null, lastUpdated: 0 };
+    this.nodeUpdated = this.nodeUpdated.bind(this);
   }
 
   componentDidMount() {
     this.loadData();
   }
 
+  nodeUpdated() {
+    console.log("nodeUpdated");
+    const now = Date.now();
+    if (this.state.lastUpdated < now - 1000) {
+      console.log("updating All");
+      this.setState({ lastUpdated: now });
+      this.updateSpawnTimes();
+    }
+  }
+
+  updateSpawnTimes() {
+    const { nodes } = this.state;
+
+    const addToState = {};
+    nodes.forEach(
+      (node) => (addToState[node._id] = getTimeUntilNextSpawn(node))
+    );
+    this.setState(addToState);
+  }
+
   /**
-   * Fetch the list of nodes from the API. 
-   * Create a <TimerRow> for each node returned and add that as an array to the state under the key 'rows'. 
+   * Fetch the list of nodes from the API.
+   * Create a <TimerRow> for each node returned and add that as an array to the state under the key 'rows'.
    * Sets rows to an empty array if no nodes were retrieved.
    */
   async loadData() {
@@ -38,20 +60,33 @@ export default class TimersCollection extends React.Component {
 
     if (nodes === undefined) {
       console.log("Nodes is undefined");
-    } else if (nodes.length > 0) {
-      this.setState({
-        rows: nodes.map((node, index) => <TimerNode key={index} node={node} />),
-      }); //Using index as key as loadData should only run once, so the keys wont change
     } else {
-      this.setState({ rows: [] });
+      this.setState({ nodes });
+
+      const addToState = {};
+      nodes.forEach(
+        (node) => (addToState[node._id] = getTimeUntilNextSpawn(node))
+      );
+      console.log(addToState);
+      this.setState(addToState);
     }
   }
 
   render() {
-    const { rows } = this.state;
+    const { nodes } = this.state;
+    const sortedNodes = nodes
+      ? nodes.sort((a, b) => this.state[a._id] - this.state[b._id])
+      : null;
     return (
       <section className="timerContainer">
-        {rows}
+        {sortedNodes?.map((node) => (
+          <TimerNode
+            key={node.id}
+            node={node}
+            timeUntilNextSpawn={this.state[node._id]}
+            nodeUpdated={this.nodeUpdated}
+          />
+        )) ?? "Loading..."}
       </section>
     );
   }

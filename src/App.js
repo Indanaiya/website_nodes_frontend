@@ -9,6 +9,9 @@ export const timer = {
   subscribe(key, fun) {
     this.subscribers.set(key, fun);
   },
+  unsubscribe(key) {
+    this.subscribers.delete(key);
+  },
 };
 
 timer.interval = setInterval(() => {
