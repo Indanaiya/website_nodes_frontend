@@ -29,18 +29,16 @@ export default class TimerNode extends React.Component {
   toggleNodeDetails() {
     if (this.state.nodeDetails) {
       this.setState({ nodeDetails: null });
-      return;
+    }else{
+      const {
+        node: { level, name, spawnTimes },
+      } = this.props;
+      const nodeDetails = (
+        <NodeDetails level={level} name={name} spawnTimes={spawnTimes} />
+      );
+  
+      this.setState({ nodeDetails });
     }
-
-    const {
-      node: { level, name, spawnTimes },
-    } = this.props;
-
-    const nodeDetails = (
-      <NodeDetails level={level} name={name} spawnTimes={spawnTimes} />
-    );
-
-    this.setState({ nodeDetails });
   }
 
   render() {

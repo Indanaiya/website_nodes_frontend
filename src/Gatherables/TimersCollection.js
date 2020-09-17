@@ -49,24 +49,16 @@ export default class TimersCollection extends React.Component {
     const nodes = await fetch(
       `http://${apiAddress}/nodes/withItemData/${SERVER}`
     )
-      .then((response) => response.text())
-      .then((body) => JSON.parse(body))
-      .catch((err) =>
-        console.log(
-          //TODO should display a message to the user
-          `Error. Could not access api ${err}`
-        )
-      );
+      .then((response) => response.json())
+      .catch((err) => alert(`Error. Could not access api ${err}`));
 
     if (nodes === undefined) {
-      console.log("Nodes is undefined");
+      alert("Nodes is undefined");
     } else {
-
-      const addToState = {nodes};
+      const addToState = { nodes };
       nodes.forEach(
         (node) => (addToState[node._id] = getTimeUntilNextSpawn(node))
       );
-      console.log(addToState);
       this.setState(addToState);
     }
   }
@@ -76,6 +68,7 @@ export default class TimersCollection extends React.Component {
     const sortedNodes = nodes
       ? nodes.sort((a, b) => this.state[a._id] - this.state[b._id])
       : null;
+      
     return (
       <section className="timerContainer">
         {sortedNodes?.map((node) => (

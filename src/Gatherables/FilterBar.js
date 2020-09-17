@@ -3,11 +3,6 @@ import React from "react";
 import Filter from "./Filter.js";
 
 export default class FilterBar extends React.Component {
-  constructor() {
-    super();
-  }
-
-
   render() {
     return (
         <div className="filter">

@@ -1,6 +1,6 @@
 import React from "react";
 
-import { timer } from "../App.js";
+import { timer } from "../../App.js";
 
 /**
  * A component to display a timer counting down to a specified time

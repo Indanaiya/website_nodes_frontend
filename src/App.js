@@ -38,9 +38,9 @@ function App() {
           <div>Root</div>
         </NavLink>
       </nav>
-      <div className="content">
+      <main>
         <Contents />
-      </div>
+      </main>
     </Router>
   );
 }

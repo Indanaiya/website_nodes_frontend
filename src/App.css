@@ -34,7 +34,7 @@ nav.sidebar a > div {
   font-size: 22px;
 }
 /* Main content view */
-.content {
+main {
   color: hsl(200, 71%, 73%);
   background-color: hsl(200, 0%, 10.4%);
   margin-left: 200px; /*The same as the sidebar width*/
