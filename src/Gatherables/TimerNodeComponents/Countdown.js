@@ -13,7 +13,7 @@ export default class Countdown extends React.Component {
    */
   constructor() {
     super();
-    this.state = {};
+    this.state = {time: null};
   }
 
   /**
@@ -24,7 +24,7 @@ export default class Countdown extends React.Component {
       const time = new Date(this.props.targetTime - Date.now());
       if (time.getTime() <= 0) {
         this.props.countdownComplete();
-        this.setState({ time: 0 });
+        this.setState({ time: new Date(0) });
       } else {
         this.setState({ time });
       }
@@ -45,7 +45,7 @@ export default class Countdown extends React.Component {
     const { time } = this.state;
     return (
       <>
-        {time
+        {time !== null
           ? `${String(time.getMinutes()).padStart(2, "0")}:${String(
               time.getSeconds()
             ).padStart(2, "0")}`

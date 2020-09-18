@@ -13,37 +13,35 @@ export default class TimersCollection extends React.Component {
   constructor() {
     super();
     this.state = { nodes: null, lastUpdated: 0 };
-    this.nodeUpdated = this.nodeUpdated.bind(this);
+    this.updateSpawnTimes = this.updateSpawnTimes.bind(this);
   }
 
   componentDidMount() {
     this.loadData();
   }
 
-  nodeUpdated() {
-    console.log("nodeUpdated");
-    const now = Date.now();
-    if (this.state.lastUpdated < now - 1000) {
-      console.log("updating All");
-      this.setState({ lastUpdated: now });
-      this.updateSpawnTimes();
-    }
-  }
-
+  /**
+   * For each node in this.state.nodes, save the current time until its next spawn
+   */
   updateSpawnTimes() {
+    if(this.state.lastUpdated > Date.now()-1000){
+      console.log("Cannot update spawn times now. The previous update is too recent");
+      return;
+    }
+
     const { nodes } = this.state;
 
-    const addToState = {};
+    console.log(this.state);
+    const addToState = { lastUpdated: Date.now() };
     nodes.forEach(
       (node) => (addToState[node._id] = getTimeUntilNextSpawn(node))
     );
+    console.log(addToState);
     this.setState(addToState);
   }
 
   /**
-   * Fetch the list of nodes from the API.
-   * Create a <TimerRow> for each node returned and add that as an array to the state under the key 'rows'.
-   * Sets rows to an empty array if no nodes were retrieved.
+   * Fetch all nodes from the API and save them to this.state.nodes along with the times until each next spawns
    */
   async loadData() {
     const nodes = await fetch(
@@ -64,22 +62,23 @@ export default class TimersCollection extends React.Component {
   }
 
   render() {
+    console.log("Rendering");
     const { nodes } = this.state;
-    const sortedNodes = nodes
-      ? nodes.sort((a, b) => this.state[a._id] - this.state[b._id])
-      : null;
-      
+    const sortedNodes =
+      nodes !== null
+        ? nodes.sort((a, b) => this.state[a._id] - this.state[b._id])
+        : null;
+    const timerNodes = sortedNodes?.map((node) => (
+      <TimerNode
+        key={node._id + this.state[node._id]}
+        node={node}
+        timeUntilNextSpawn={this.state[node._id]}
+        nodeUpdated={this.updateSpawnTimes}
+      />
+    ));
+    console.log({ nodes, sortedNodes, timerNodes });
     return (
-      <section className="timerContainer">
-        {sortedNodes?.map((node) => (
-          <TimerNode
-            key={node.id}
-            node={node}
-            timeUntilNextSpawn={this.state[node._id]}
-            nodeUpdated={this.nodeUpdated}
-          />
-        )) ?? "Loading..."}
-      </section>
+      <section className="timerContainer">{timerNodes ?? "Loading..."}</section>
     );
   }
 }
