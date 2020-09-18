@@ -1,5 +1,10 @@
 import React from "react";
 
+/**
+ * A component function to display market information about a single item
+ * 
+ * @param {{marketInfo:{saleVelocity: number, avgPrice: number, lastUploadTime: number}, server:string, itemName:string, removeServerSpecifics:Function}} props
+ */
 export default function ServerSpecifics({
   marketInfo: { saleVelocity, avgPrice, lastUploadTime },
   server,
@@ -14,7 +19,7 @@ export default function ServerSpecifics({
     (lastUploadTimeDate.getUTCMonth() + 1) +
     "/" +
     lastUploadTimeDate.getUTCFullYear();
-    
+
   return (
     <table className="details">
       <thead>

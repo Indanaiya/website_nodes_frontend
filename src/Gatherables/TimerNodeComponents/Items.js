@@ -1,7 +1,10 @@
 import React from "react";
 
-import ItemDetails from "./ItemDetails"
+import ItemDetails from "./ItemDetails";
 
+/**
+ * A component class for displaying a single item
+ */
 export default class Items extends React.Component {
   constructor({ items }) {
     super();
@@ -20,11 +23,13 @@ export default class Items extends React.Component {
       </ul>
     );
     this.removeItemDetails = this.removeItemDetails.bind(this);
-    this.state = {}
+    this.state = { description: null };
   }
 
   displayItemDetails(item) {
-    const description = <ItemDetails item={item} removeItemDetails={this.removeItemDetails}/>
+    const description = (
+      <ItemDetails item={item} removeItemDetails={this.removeItemDetails} />
+    );
     this.setState({ description });
   }
 
@@ -33,7 +38,7 @@ export default class Items extends React.Component {
   }
 
   render() {
-    const {description} = this.state;
+    const { description } = this.state;
     return description ?? this.itemsList;
   }
 }

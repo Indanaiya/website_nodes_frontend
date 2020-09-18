@@ -5,7 +5,7 @@ import Items from "./TimerNodeComponents/Items";
 import NodeDetails from "./TimerNodeComponents/NodeDetails";
 
 /**
- * A class to represent one gathering node
+ * A Component class to represent one gathering node
  */
 export default class TimerNode extends React.Component {
   constructor({ node, timeUntilNextSpawn }) {
@@ -26,6 +26,9 @@ export default class TimerNode extends React.Component {
     this.toggleNodeDetails = this.toggleNodeDetails.bind(this);
   }
 
+  /**
+   * Toggle the display of nodeDetails in the node body (Default display is this.items)
+   */
   toggleNodeDetails() {
     if (this.state.nodeDetails) {
       this.setState({ nodeDetails: null });
@@ -57,7 +60,7 @@ export default class TimerNode extends React.Component {
           nodeUpdated={nodeUpdated}
           onClick={this.toggleNodeDetails}
         />
-        <div className="main">{nodeDetails ?? this.items}</div>
+        <div className="nodeBody">{nodeDetails ?? this.items}</div>
       </div>
     );
   }

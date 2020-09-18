@@ -2,6 +2,9 @@ import React from "react";
 
 import ServerSpecifics from "./ServerSpecifics";
 
+/**
+ * A component class to display the prices for a given item on different servers
+ */
 export default class ItemDetails extends React.Component {
   constructor({ item, removeItemDetails }) {
     super();
@@ -48,6 +51,13 @@ export default class ItemDetails extends React.Component {
     );
   }
 
+  /**
+   * Display more detail about market information for a specific server
+   * 
+   * @param {{saleVelocity: number,avgPrice:number,lastUploadTime:number}} marketInfo 
+   * @param {string} server 
+   * @param {string} itemName 
+   */
   displayServerSpecifics(marketInfo, server, itemName) {
     //marketInfo: {saleVelocity, avgPrice, lastUploadTime} ,server, itemName, removeServerSpecifics
     const serverSpecifics = (
@@ -61,6 +71,9 @@ export default class ItemDetails extends React.Component {
     this.setState({ serverSpecifics });
   }
 
+  /**
+   * Go back to displaying prices for many servers
+   */
   removeServerSpecifics() {
     this.setState({ serverSpecifics: null });
   }
