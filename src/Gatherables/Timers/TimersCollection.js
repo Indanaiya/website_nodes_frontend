@@ -1,7 +1,7 @@
 import React from "react";
 
 import TimerNode from "./TimerNode";
-import { getTimeUntilNextSpawn } from "./eorzeaTime";
+import { getTimeUntilNextSpawn } from "../eorzeaTime";
 
 const apiAddress = process.env.REACT_APP_API_ADDRESS ?? "localhost:5000";
 const SERVER = "Chaos"; //TODO should be site wide

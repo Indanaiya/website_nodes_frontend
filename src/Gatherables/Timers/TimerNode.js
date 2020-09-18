@@ -1,8 +1,8 @@
 import React from "react";
 
-import NodeHeader from "./TimerNodeComponents/NodeHeader";
-import Items from "./TimerNodeComponents/Items";
-import NodeDetails from "./TimerNodeComponents/NodeDetails";
+import NodeHeader from "./NodeHeader";
+import Items from "./Items";
+import NodeDetails from "./NodeDetails";
 
 /**
  * A Component class to represent one gathering node
