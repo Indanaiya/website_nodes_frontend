@@ -14,10 +14,11 @@ export default class Items extends React.Component {
         {items.map((item, index) => (
           <li
             key={index}
-            className="clickable"
-            onClick={this.displayItemDetails.bind(this, item)}
           >
-            {item.name}
+            <span onClick={this.displayItemDetails.bind(this, item)} className="name clickable" >{item.name}</span>
+            {item.task?.whiteScrips ? <img className="clickable" src="https://xivapi.com/i/065000/065069.png" alt="White Scrips"/> : null}
+            {item.task?.yellowScrips ? <img className="clickable" src="https://xivapi.com/i/065000/065043.png" alt="Yellow Scrips"/> : null}
+            {item.task?.aetherialReduce ? "Reducible" : null}
           </li>
         ))}
       </ul>
@@ -27,10 +28,7 @@ export default class Items extends React.Component {
   }
 
   displayItemDetails(item) {
-    const description = (
-      <ItemDetails item={item} removeItemDetails={this.removeItemDetails} />
-    );
-    this.setState({ description });
+    this.setState({ description: item });
   }
 
   removeItemDetails() {
@@ -39,6 +37,6 @@ export default class Items extends React.Component {
 
   render() {
     const { description } = this.state;
-    return description ?? this.itemsList;
+    return description ? <ItemDetails item={description} removeItemDetails={this.removeItemDetails} /> : this.itemsList;
   }
 }
