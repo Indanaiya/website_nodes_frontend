@@ -1,3 +1,7 @@
+body {
+  background-color: hsl(200, 0%, 10.4%);
+}
+
 /* Sidebar */
 nav.sidebar {
   background-color: hsl(200, 0%, 15%);
@@ -30,16 +34,14 @@ nav.sidebar a.active > div {
 nav.sidebar a > div {
   margin-left: 10px;
   margin-right: 10px;
-  color: hsl(0,0%,75%);
+  color: hsl(0, 0%, 75%);
   font-size: 22px;
 }
+
 /* Main content view */
 main {
   color: hsl(200, 71%, 73%);
-  background-color: hsl(200, 0%, 10.4%);
   margin-left: 200px; /*The same as the sidebar width*/
-  padding: 1px 16px;
-  height: 1000px; /*TODO, just for testing*/
 }
 
 ::selection {

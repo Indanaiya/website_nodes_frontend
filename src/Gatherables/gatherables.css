@@ -2,15 +2,40 @@
 .filter {
   display: flex;
   text-align: center;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-color: hsl(200, 50%, 40%);
+  border-width: 1px;
+  border-style: solid;
 }
+
+.filter div{
+  border-color: hsl(200, 50%, 40%);
+  border-width: 1px;
+  border-style: solid;
+  background-color: hsl(217, 10%, 25%);
+}
+
+.filter h3 {
+  margin: 0px;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-bottom: 2px;
+  background-color: hsl(217, 10%, 15%);
+  border-width: 0px;
+  border-bottom-width: 2px;
+  border-style: solid;
+  border-color: hsl(200, 50%, 40%);
+}
+
 .filter .selected {
   font-weight: 600;
   background-color: hsl(200, 0%, 25%);
 }
 .filter ul {
   list-style-position: inside;
-  padding: 0px;
   display: grid;
+  margin:6px;
+  padding:0px;
 }
 
 .filter ul.patches {
@@ -21,6 +46,10 @@
   grid-template-columns: auto;
 }
 
+.filter ul.tasks {
+  grid-template-columns: auto;
+}
+
 .filter li {
   list-style-type: none;
   text-align: center;
@@ -28,6 +57,7 @@
 
 /* The position of the node boxes */
 section.timerContainer {
+  padding: 10px 16px;
   display: grid;
   grid-template-columns: repeat(
     auto-fill,
