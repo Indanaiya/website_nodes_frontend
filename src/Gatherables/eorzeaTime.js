@@ -75,6 +75,6 @@ export function getTimeUntilNextSpawn({ spawnTimes, lifespan }) {
     }
   }
   return timeUntilInEorzea(
-    Math.floor(spawnTimes[0] / 100) + (spawnTimes[0] % 100) / 60
+    Math.floor(spawnTimes[0] / 100) + (spawnTimes[0] % 100)
   ); //If nothing was returned during the for loop, that means that the next spawn time will be the first one tomorrow.
 }
