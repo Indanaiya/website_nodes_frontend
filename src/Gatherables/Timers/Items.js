@@ -44,7 +44,12 @@ export default class Items extends React.Component {
                 alt="Yellow Scrips"
               />
             ) : null}
-            {item.task?.aetherialReduce ? "Reducible" : null}
+            {item.task?.aetherialReduce?.length > 0 ? (<img
+              className="clickable"
+              onClick={this.displayItemDetails.bind(this, item.task.aetherialReduce[0])}
+              src={`https://xivapi.com${item.task.aetherialReduce[0].icon}`}
+              alt={item.task.aetherialReduce[0].name}
+            />): null}
           </li>
         ))}
       </ul>
