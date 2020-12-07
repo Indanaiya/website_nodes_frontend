@@ -14,7 +14,6 @@ export default class TimerNode extends React.Component {
 
     let timeUntilDespawn;
     if (timeUntilNextSpawn < 0) {
-      console.log(timeUntilNextSpawn);
       this.className = "activeNode";
       timeUntilDespawn = -timeUntilNextSpawn;
     }

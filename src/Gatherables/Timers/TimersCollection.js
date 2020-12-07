@@ -30,13 +30,10 @@ export default class TimersCollection extends React.Component {
     }
 
     const { nodes } = this.state;
-
-    console.log(this.state);
     const addToState = { lastUpdated: Date.now() };
     nodes.forEach(
       (node) => (addToState[node._id] = getTimeUntilNextSpawn(node))
     );
-    console.log(addToState);
     this.setState(addToState);
   }
 
@@ -51,7 +48,7 @@ export default class TimersCollection extends React.Component {
       .catch((err) => alert(`Error. Could not access api ${err}`));
 
     if (nodes === undefined) {
-      alert("Nodes is undefined");
+      alert("Nodes is undefined");//TODO We shouldn't use alert
     } else {
       const addToState = { nodes };
       nodes.forEach(
@@ -62,7 +59,6 @@ export default class TimersCollection extends React.Component {
   }
 
   render() {
-    console.log("Rendering");
     const { nodes } = this.state;
     const sortedNodes =
       nodes !== null
@@ -76,7 +72,6 @@ export default class TimersCollection extends React.Component {
         nodeUpdated={this.updateSpawnTimes}
       />
     ));
-    console.log({ nodes, sortedNodes, timerNodes });
     return (
       <section className="timerContainer">{timerNodes ?? "Loading..."}</section>
     );
