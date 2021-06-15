@@ -33,7 +33,6 @@ export function getEorzeaTime() {
   return { hours, minutes };
 }
 
-//Target time is in hours
 /**
  * Get the amount of time (in the real world) until a specified time in Eorzea
  *

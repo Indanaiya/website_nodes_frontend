@@ -24,8 +24,10 @@ export default class TimersCollection extends React.Component {
    * For each node in this.state.nodes, save the current time until its next spawn
    */
   updateSpawnTimes() {
-    if(this.state.lastUpdated > Date.now()-1000){
-      console.log("Cannot update spawn times now. The previous update is too recent");
+    if (this.state.lastUpdated > Date.now() - 1000) {
+      console.log(
+        "Cannot update spawn times now. The previous update is too recent"
+      );
       return;
     }
 
@@ -45,10 +47,13 @@ export default class TimersCollection extends React.Component {
       `http://${apiAddress}/nodes/withItemData/${SERVER}`
     )
       .then((response) => response.json())
-      .catch((err) => alert(`Error. Could not access api ${err}`));
+      .catch((err) => {
+        console.log({ err });
+        alert(`Error. Could not access api ${err}`);
+      });
 
     if (nodes === undefined) {
-      alert("Nodes is undefined");//TODO We shouldn't use alert
+      alert("Nodes is undefined"); //TODO We shouldn't use alert
     } else {
       const addToState = { nodes };
       nodes.forEach(

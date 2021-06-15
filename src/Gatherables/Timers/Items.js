@@ -9,7 +9,7 @@ import ScripDetails from "./ScripDetails";
 export default class Items extends React.Component {
   constructor({ items }) {
     super();
-
+    console.log({items})
     this.itemsList = (
       <ul>
         {items.map((item, index) => (
