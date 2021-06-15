@@ -38,7 +38,7 @@ export default class TestTable extends React.Component {
 
   async loadData() {
     const itemsJson = await fetch(
-      "http://localhost:5000/items/phantasmagoria?datacenter=Chaos"
+      "http://localhost:5000/items/phantasmagoria/Chaos"
     )
       .then((response) => response.text())
       .then((body) => JSON.parse(body));
