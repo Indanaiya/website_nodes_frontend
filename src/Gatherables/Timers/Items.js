@@ -9,17 +9,21 @@ import ScripDetails from "./ScripDetails";
 export default class Items extends React.Component {
   constructor({ items }) {
     super();
-    console.log({items})
+    console.log({ items });
     this.itemsList = (
       <ul>
         {items.map((item, index) => (
           <li key={index}>
-            <span
-              onClick={this.displayItemDetails.bind(this, item)}
-              className="name clickable"
-            >
-              {item.name}
-            </span>
+            {typeof item.marketInfo !== "undefined" ? (
+              <span
+                onClick={this.displayItemDetails.bind(this, item)}
+                className="name clickable"
+              >
+                {item.name}
+              </span>
+            ) : (
+              <span className="name">{item.name}</span>
+            )}
             {item.task?.whiteScrips ? (
               <img
                 className="clickable"
@@ -44,12 +48,17 @@ export default class Items extends React.Component {
                 alt="Yellow Scrips"
               />
             ) : null}
-            {item.task?.aetherialReduce?.length > 0 ? (<img
-              className="clickable"
-              onClick={this.displayItemDetails.bind(this, item.task.aetherialReduce[0])}
-              src={`https://xivapi.com${item.task.aetherialReduce[0].icon}`}
-              alt={item.task.aetherialReduce[0].name}
-            />): null}
+            {item.task?.aetherialReduce?.length > 0 ? (
+              <img
+                className="clickable"
+                onClick={this.displayItemDetails.bind(
+                  this,
+                  item.task.aetherialReduce[0]
+                )}
+                src={`https://xivapi.com${item.task.aetherialReduce[0].icon}`}
+                alt={item.task.aetherialReduce[0].name}
+              />
+            ) : null}
           </li>
         ))}
       </ul>
